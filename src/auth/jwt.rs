@@ -4,9 +4,9 @@ use crate::auth::permissions::Role;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Claims {
-    pub sub: String, // ID do usuário
-    pub exp: usize,  // Data de expiração
-    pub role: String, // Papel do usuário
+    pub sub: String,
+    pub exp: usize,
+    pub role: String,
 }
 
 const SECRET: &str = "your_secret_key";
@@ -27,7 +27,6 @@ pub fn create_token(user_id: &str, role: Role) -> Result<String, Error> {
     encode(&Header::default(), &claims, &EncodingKey::from_secret(SECRET.as_ref()))
 }
 
-// Função para decodificar e validar um token
 pub fn decode_token(token: &str) -> Result<Claims, Error> {
     let token_data = decode::<Claims>(
         token,

@@ -7,10 +7,9 @@ pub enum Role {
 }
 
 impl Role {
-    // Função para verificar se o papel corresponde ao autorizado
     pub fn is_authorized(&self, user_role: &str) -> bool {
         match self {
-            Role::Admin => user_role == "Admin" || user_role == "User", //Admin pode acessar como usuário
+            Role::Admin => user_role == "Admin" || user_role == "User",
             Role::User => user_role == "User"
         }
     }

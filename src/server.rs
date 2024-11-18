@@ -29,7 +29,6 @@ async fn graphql_handler(
 ) -> GraphQLResponse {
     let mut request = req.into_inner();
 
-    // Extrai o cabeçalho Authorization
     if let Some(auth_header) = headers.get("Authorization") {
         if let Ok(auth_str) = auth_header.to_str() {
             let token = auth_str.trim_start_matches("Bearer ");
@@ -43,23 +42,22 @@ async fn graphql_handler(
     schema.execute(request).await.into()
 }
 
-// Cria o aplicativo com suporte ao CORS e autenticação
 pub async fn create_app(database_url: String) -> Router {
-    // Conecta ao banco de dados
+    //database
     let db = Database::connect(&database_url)
         .await
         .expect("Failed to connect to database");
 
-    // Cria o schema GraphQL
+    //graphql schema
     let schema = Arc::new(create_schema(db.clone()));
 
-    // Configura o CORS
+    //cors
     let cors = CorsLayer::new()
         .allow_origin(Any)
         .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
         .allow_headers(Any);
 
-    // Configura as rotas
+    //routes
     Router::new()
         .route("/", get(graphiql))
         .route("/graphql", axum::routing::post(graphql_handler))
