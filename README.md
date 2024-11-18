@@ -18,3 +18,7 @@ For studies and improvements in the Rust language.
 ### Ps
 
 I am using authorization and authentication using JWT and based on user roles.
+
+### Screen
+
+<img width="1629" alt="image" src="https://github.com/user-attachments/assets/f28e52fe-3431-42bf-bde0-a446c30960a2">
