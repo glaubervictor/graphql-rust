@@ -1,7 +1,7 @@
+mod auth;
 mod graphql;
 mod repository;
 mod server;
-mod auth;
 
 use dotenv::dotenv;
 use std::env;

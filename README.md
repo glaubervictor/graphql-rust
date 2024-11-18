@@ -12,7 +12,8 @@ For studies and improvements in the Rust language.
 # Migrating the Project
 
 - Use `sea-orm-cli migrate up` after install cli.
-- Use `sea-orm-cli generate entity --compact-format --tables person --output-dir ./trash` for create entity (ex. Person) after new migration created and updated in database.
+- Use `sea-orm-cli generate entity --compact-format --tables person --output-dir ./trash` for create entity (ex. Person)
+  after new migration created and updated in database.
 
 ### Ps
 

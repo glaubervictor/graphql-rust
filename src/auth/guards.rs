@@ -17,10 +17,14 @@ impl Guard for RoleGuard {
         if let Some(user) = get_authenticated_user(ctx) {
             let user_role = &user.claims.role;
             if !self.role.is_authorized(user_role) {
-                return Err(async_graphql::Error::new("Acesso negado: você não tem permissão para acessar este recurso"));
+                return Err(async_graphql::Error::new(
+                    "Acesso negado: você não tem permissão para acessar este recurso",
+                ));
             }
         } else {
-            return Err(async_graphql::Error::new("Acesso negado: usuário não autenticado"));
+            return Err(async_graphql::Error::new(
+                "Acesso negado: usuário não autenticado",
+            ));
         }
 
         Ok(())

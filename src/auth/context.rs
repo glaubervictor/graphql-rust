@@ -1,5 +1,5 @@
-use async_graphql::Context;
 use crate::auth::jwt::Claims;
+use async_graphql::Context;
 
 #[derive(Clone)]
 pub struct AuthenticatedUser {

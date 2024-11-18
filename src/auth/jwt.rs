@@ -1,6 +1,6 @@
-use jsonwebtoken::{encode, decode, Header, Validation, EncodingKey, DecodingKey, errors::Error};
-use serde::{Serialize, Deserialize};
 use crate::auth::permissions::Role;
+use jsonwebtoken::{decode, encode, errors::Error, DecodingKey, EncodingKey, Header, Validation};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Claims {
@@ -9,9 +9,8 @@ pub struct Claims {
     pub role: String,
 }
 
-const SECRET: &str = "your_secret_key";
+const SECRET: &str = "your_secret_key"; //TODO .env
 
-// Função para criar um token
 pub fn create_token(user_id: &str, role: Role) -> Result<String, Error> {
     let expiration = chrono::Utc::now()
         .checked_add_signed(chrono::Duration::hours(24))
@@ -24,7 +23,11 @@ pub fn create_token(user_id: &str, role: Role) -> Result<String, Error> {
         role: role.to_string(),
     };
 
-    encode(&Header::default(), &claims, &EncodingKey::from_secret(SECRET.as_ref()))
+    encode(
+        &Header::default(),
+        &claims,
+        &EncodingKey::from_secret(SECRET.as_ref()),
+    )
 }
 
 pub fn decode_token(token: &str) -> Result<Claims, Error> {

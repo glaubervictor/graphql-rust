@@ -10,7 +10,7 @@ impl Role {
     pub fn is_authorized(&self, user_role: &str) -> bool {
         match self {
             Role::Admin => user_role == "Admin" || user_role == "User",
-            Role::User => user_role == "User"
+            Role::User => user_role == "User",
         }
     }
 }

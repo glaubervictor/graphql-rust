@@ -13,9 +13,13 @@ use tower_http::cors::{Any, CorsLayer};
 use crate::auth::{context::AuthenticatedUser, jwt::decode_token};
 
 fn create_schema(db: DatabaseConnection) -> Schema<QueryRoot, MutationRoot, EmptySubscription> {
-    Schema::build(QueryRoot::default(), MutationRoot::default(), EmptySubscription)
-        .data(db)
-        .finish()
+    Schema::build(
+        QueryRoot::default(),
+        MutationRoot::default(),
+        EmptySubscription,
+    )
+    .data(db)
+    .finish()
 }
 
 async fn graphiql() -> impl IntoResponse {

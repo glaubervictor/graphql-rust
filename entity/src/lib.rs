@@ -1,3 +1,4 @@
+pub mod dtos;
 pub mod person;
 pub mod user;
-pub mod dtos;
+pub mod utils;

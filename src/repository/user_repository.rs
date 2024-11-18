@@ -1,11 +1,18 @@
-use sea_orm::{error::DbErr, DatabaseConnection, EntityTrait, Order, QueryOrder, QueryFilter, ColumnTrait, Set, ActiveModelTrait};
 use entity::dtos::user_dto::UserDto;
 pub use entity::user::{Entity as UserEntity, Model as User};
+use sea_orm::{
+    error::DbErr, ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, Order,
+    QueryFilter, QueryOrder, Set,
+};
 
 pub struct UserRepository;
 
 impl UserRepository {
-    pub async fn validate_user(db: &DatabaseConnection, email: &str, password: &str) -> Result<User, String> {
+    pub async fn validate_user(
+        db: &DatabaseConnection,
+        email: &str,
+        password: &str,
+    ) -> Result<User, String> {
         let user = UserEntity::find()
             .filter(entity::user::Column::Email.eq(email))
             .one(db)
@@ -23,7 +30,11 @@ impl UserRepository {
         }
     }
 
-    pub async fn register_user(db: &DatabaseConnection, email: &str, password: &str) -> Result<User, String> {
+    pub async fn add_user(
+        db: &DatabaseConnection,
+        email: &str,
+        password: &str,
+    ) -> Result<User, String> {
         let active_model = entity::user::ActiveModel {
             id: Set(cuid2::create_id()),
             email: Set(email.to_string()),
@@ -48,9 +59,7 @@ impl UserRepository {
             .all(db)
             .await?;
 
-        let user_dtos: Vec<UserDto> = users.iter()
-            .map(|user| user.into())
-            .collect();
+        let user_dtos: Vec<UserDto> = users.iter().map(|user| user.into()).collect();
 
         Ok(user_dtos)
     }

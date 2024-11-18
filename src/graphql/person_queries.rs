@@ -1,9 +1,9 @@
-use crate::repository::person_repository::{Person, PersonRepository};
-use async_graphql::{Context, Object};
-use sea_orm::DatabaseConnection;
-use entity::dtos::person_dto::PersonDto;
 use crate::auth::guards::RoleGuard;
 use crate::auth::permissions::Role;
+use crate::repository::person_repository::PersonRepository;
+use async_graphql::{Context, Object};
+use entity::dtos::person_dto::PersonDto;
+use sea_orm::DatabaseConnection;
 
 #[derive(Default)]
 pub struct PersonQueries;
